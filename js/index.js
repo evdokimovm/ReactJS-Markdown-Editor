@@ -1,7 +1,7 @@
 var MarkdownEditor = React.createClass({
 	getInitialState: function() {
 		return {
-			content: 'Heading\n=======\n\nSub-heading\n-----------\n \n### Another deeper heading\n \nParagraphs are separated\nby a blank line.\n\nLeave 2 spaces at the end of a line to do a\u0020\u0020\nline break\n\nText attributes * italic *, ** bold **,\n `monospace`, ~~strikethrough~~.\n\nShopping list : \n\n * apples\n * oranges\n * pears\n\nNumbered list : \n\n 1. apples\n 2. oranges\n 3. pears\n\nThe rain __not the reign__ in\nSpain.\n```javascript\nMath.randomBetween = function (a, b) {\n	return Math.floor(Math.random() * (b - a + 1) + a); \n}\n```\n'
+			content: localStorage.getItem('markdownStorage') || '### Type Markdown Here'
 		}
 	},
 	handleChange: function(event) {
@@ -28,6 +28,14 @@ var MarkdownEditor = React.createClass({
 		return {
 			__html: rawMarkup
 		}
+	},
+	componentWillMount: function() {
+		const script = document.createElement('script')
+
+		script.src = './js/storage.js'
+		script.async = true
+
+		document.body.appendChild(script)
 	},
 	render: function() {
 		return (
